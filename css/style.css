@@ -137,3 +137,18 @@ table {
 .logo {
     width: 40px;
 }
+
+.tooltip-top {
+    position: relative;
+
+    &::before {
+        content: attr(data-title);
+        position: absolute;
+        top: -40px;
+        left: -100%;
+        border: 1px;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: inherit;
+    }
+}

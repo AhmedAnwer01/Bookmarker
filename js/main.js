@@ -14,12 +14,12 @@ if (localStorage.getItem("bookmarks")) {
     displayBookmark()
 }
 
-submitBtn.addEventListener("click", makeBookmark) 
+submitBtn.addEventListener("click", makeBookmark)
 
 // RegExp
 
 function validateInputUrl(value) {
-    var regexUrl = new RegExp(/^(https:\/\/)?(www\.)?\w+\.(com|dev|org|net)(\/|\w|=|\+|-|\?)*$/, "gm")
+    var regexUrl = new RegExp(/^(https?:\/\/)?((([a-zA-Z0-9$_.+!*'(),;?&=-]+)(:[a-zA-Z0-9$_.+!*'(),;?&=-]*)?@)?((\[[0-9a-fA-F:.]+\])|(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,})))((\/[a-zA-Z0-9$_.+!*'(),;:@&=-]*)*(\/[a-zA-Z0-9$_.+!*'(),;:@&=-]+)(\/[a-zA-Z0-9$_.+!*'(),;:@&=-]*)*(\?[a-zA-Z0-9$_.+!*'(),;:@&=-]*)?)?(#[a-zA-Z0-9$_.+!*'(),;:@&=-]*)?$/, "gm")
     return regexUrl.test(bookmarkURL.value)
 }
 function validateInputName(value) {
@@ -30,18 +30,18 @@ function validateInputName(value) {
 // Make Bookmark
 
 function makeBookmark() {
-    if(validateInputName(bookmarkName.value) && validateInputUrl(bookmarkURL.value)){
+    if (validateInputName(bookmarkName.value) && validateInputUrl(bookmarkURL.value)) {
         let bookmark = {
             name: bookmarkName.value,
             url: bookmarkURL.value
         }
-        
+
         bookmarks.push(bookmark)
         localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
         clearInputs()
         displayBookmark()
     }
-    else{
+    else {
         boxModal.classList.remove("d-none");
     }
 }
@@ -53,7 +53,7 @@ function displayBookmark() {
         <td>${i + 1}</td>
         <td>${bookmarks[i].name}</td>              
         <td>
-        <button class="btn btn-visit" data-index="${i}">
+        <button data-title="${bookmarks[i].url}" class="btn btn-visit" data-index="${i}">
             <i class="fa-solid fa-eye pe-2"></i>Visit
         </button>
         </td>
@@ -67,7 +67,6 @@ function displayBookmark() {
         `
     }
     tableContent.innerHTML = newBookmark
-
     deleteBtns = document.querySelectorAll(".btn-delete");
     if (deleteBtns) {
         for (let i = 0; i < deleteBtns.length; i++) {
@@ -79,9 +78,16 @@ function displayBookmark() {
     visitBtns = document.querySelectorAll(".btn-visit");
     if (visitBtns) {
         for (let i = 0; i < visitBtns.length; i++) {
-            visitBtns[i].addEventListener("click", function (e) {
+            let btn = visitBtns[i]
+            btn.addEventListener("click", function (e) {
                 visitWebsite(e);
-            });
+            })
+            btn.addEventListener("mouseenter", () => {
+                btn.classList.add("tooltip-top")
+            })
+            btn.addEventListener("mouseleave", () => {
+                btn.classList.remove("tooltip-top")
+            })
         }
     }
 
