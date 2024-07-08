@@ -140,15 +140,30 @@ table {
 
 .tooltip-top {
     position: relative;
+    display: flex;
+    justify-content: center;
 
-    &::before {
-        content: attr(data-title);
-        position: absolute;
-        top: -40px;
-        left: -100%;
-        border: 1px;
-        padding: 5px;
-        border-radius: 5px;
-        background-color: inherit;
+    &:hover {
+        &::before {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 40px;
+            border: 1px;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: inherit;
+        }
+    }
+}
+
+@media (max-width: 430px) {
+    .btn-delete, .btn-visit {
+        display: flex;
+        align-items: center;
+        padding: 4px 6px;
+
+        th {
+            font-size: x-small;
+        }
     }
 }

@@ -23,7 +23,7 @@ function validateInputUrl(value) {
     return regexUrl.test(bookmarkURL.value)
 }
 function validateInputName(value) {
-    var regexName = new RegExp(/^(\w| |,|\.|\/){3,30}$/, "gm")
+    var regexName = new RegExp(/^(\w| |,|\.|\/|-){3,30}$/, "gm")
     return regexName.test(value)
 }
 
@@ -52,8 +52,8 @@ function displayBookmark() {
         newBookmark += `
         <td>${i + 1}</td>
         <td>${bookmarks[i].name}</td>              
-        <td>
-        <button data-title="${bookmarks[i].url}" class="btn btn-visit" data-index="${i}">
+        <td class="d-flex justify-content-center">
+        <button data-title="${bookmarks[i].url}" class="btn btn-visit tooltip-top" data-index="${i}">
             <i class="fa-solid fa-eye pe-2"></i>Visit
         </button>
         </td>
@@ -82,12 +82,12 @@ function displayBookmark() {
             btn.addEventListener("click", function (e) {
                 visitWebsite(e);
             })
-            btn.addEventListener("mouseenter", () => {
-                btn.classList.add("tooltip-top")
-            })
-            btn.addEventListener("mouseleave", () => {
-                btn.classList.remove("tooltip-top")
-            })
+            // btn.addEventListener("mouseenter", () => {
+            //     btn.classList.add("tooltip-top")
+            // })
+            // btn.addEventListener("mouseleave", () => {
+            //     btn.classList.remove("tooltip-top")
+            // })
         }
     }
 
